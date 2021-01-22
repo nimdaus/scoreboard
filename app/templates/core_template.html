@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{% block title %}{% endblock %}</title>
+  <!-- Bootswatch CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/darkly/bootstrap.min.css" integrity="sha384-nNK9n28pDUDDgIiIqZ/MiyO3F4/9vsMtReZK39klb/MtkZI3/LtjSjlmyVPS3KdN" crossorigin="anonymous">
+  <!-- Bootstrap Icons CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+  <!-- "navbar navbar-expand-md sticky-top navbar-dark bg-dark" -->
+  <nav class="navbar navbar-expand-md sticky-top">
+    <span class="navbar-brand mb-0 h1">ScoreBoard</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/"><i class="bi bi-speedometer"></i> Status</a>
+        </li>
+                <li class="nav-item">
+          <a class="nav-link" href="/preferences"><i class="bi bi-gear"></i> Preferences</a>
+        </li>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-trophy"></i>  Teams</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/scoreticker" target="_blank" rel="noopener noreferrer">NHL</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/seriesticker" target="_blank" rel="noopener noreferrer">MLB</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/standings" target="_blank" rel="noopener noreferrer">NFL</a>
+          </div>
+        </li>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-easel"></i>  Boards</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/scoreticker" target="_blank" rel="noopener noreferrer">Scoreticker</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/seriesticker" target="_blank" rel="noopener noreferrer">Seriesticker</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/standings" target="_blank" rel="noopener noreferrer">Standings</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/clock"target="_blank" rel="noopener noreferrer">Clock</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/covid19" target="_blank" rel="noopener noreferrer">COVID19</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/weather" target="_blank" rel="noopener noreferrer">Weather</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-toggles"></i>  States</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/off_day" target="_blank" rel="noopener noreferrer">Off Day</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/scheduled" target="_blank" rel="noopener noreferrer">Scheduled</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/intermission" target="_blank" rel="noopener noreferrer">Intermission</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/post_game"target="_blank" rel="noopener noreferrer">Post Game</a>
+          </div>
+        </li>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link" href="/config"><i class="bi bi-tv"></i>  Screen Settings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"><i class="bi bi-arrow-up-circle"></i>  Upgrade</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"><i class="bi bi-terminal"></i>  SSH</a>
+        </li>
+      </ul>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-power"></i>  Power</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/reload" target="_blank" rel="noopener noreferrer">Stop / Start</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/reload" target="_blank" rel="noopener noreferrer">Reload WebUI</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/reset" target="_blank" rel="noopener noreferrer">Reset Scoreboard</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/restart"target="_blank" rel="noopener noreferrer">Restart Device</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for msg in messages %}
+        <p>{{msg}}</p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <main>
+    {% block main %}
+    {% endblock %}
+  </main>
+  
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

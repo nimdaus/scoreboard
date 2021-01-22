@@ -1,0 +1,9 @@
+{
+	"logs_dir": false,
+	"iface": "wlan0",
+	"app_config": {
+		"config_source": "~/nhl-led-scoreboard/config/config.json",
+		"app_executable": "~/nhl-led-scoreboard/src/main.py",
+		"webssh_port": "2222"
+	}
+}

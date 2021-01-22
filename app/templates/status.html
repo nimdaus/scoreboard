@@ -1,0 +1,26 @@
+{% extends "core_template.html" %}
+{% block title %}Status{% endblock %}
+{% block main %}
+
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h4>Activity</h4><p>
+			Status: {{ active_status }}<br>
+			Version: {{ active_verion }}
+			Board Time: {{ active_time }}<br>
+			Uptime: {{ uptime }}<p>
+			<h4>Hardware & Network</h4><p>
+			Hostname: {{ hostname }}<br>
+			IP Address: {{ ip_address }}<br>
+			Load Avg: {{ load_avg }}<br>
+			CPU Temp: {{ cpu_thermal }}<p>
+			<h4>Software</h4><p>
+			Kernel: {{ kernel }}<br>
+			Operating System: {{ operating_system }}<br>
+			Python Version: {{ py_version }}<br>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
