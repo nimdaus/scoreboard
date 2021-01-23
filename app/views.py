@@ -75,7 +75,7 @@ def load_config():
 def status():
 	load_status()
 	load_config()
-	return render_template("status.html", active_status=active_status, active_version=active_version, uptime=uptime, active_time=active_time, load_avg=load_avg, ip_address=ip_address, hostname=hostname, , cpu_thermal=cpu_thermal, kernel=kernel, operating_system=operating_system, py_version=py_version)
+	return render_template("status.html", active_status=active_status, active_version=active_version, uptime=uptime, active_time=active_time, load_avg=load_avg, ip_address=ip_address, hostname=hostname, cpu_thermal=cpu_thermal, kernel=kernel, operating_system=operating_system, py_version=py_version)
 
 @app.route('/preferences', methods=["GET"])
 def preferences():
