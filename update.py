@@ -2,9 +2,17 @@ from subprocess import check_call, Popen
 import time
 
 print("Killing WebUI")
-check_call(["pkill", "-9", "-f", "flask"])
+try:
+	check_call(["pkill", "-9", "-f", "flask"])
+except:
+continue
+
 print("Refreshing from source")
-check_call(["pkill", "-9", "-f", "webui"])
+try:
+	check_call(["pkill", "-9", "-f", "webui"])
+except:
+continue
+
 proc = subprocess.Popen('screen -S webui', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
 proc.stdin.write('cd ~/scoreboard\n')
 proc.stdin.write('git reset --hard\n')
