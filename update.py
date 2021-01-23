@@ -15,7 +15,7 @@ except Exception:
 	pass
 
 proc = subprocess.Popen('screen -S webui', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
-proc.stdin.write('cd ~/scoreboard\n')
+proc.stdin.write('"cd ~/scoreboard".encode()\n')
 proc.stdin.write('git reset --hard\n')
 proc.stdin.write('git checkout main\n')
 proc.stdin.write('git pull\n')
