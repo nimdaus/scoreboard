@@ -20,3 +20,9 @@ export FLASK_ENV=development
 
 launch:
 flask run -h <IP of System>
+
+
+UPDATE:
+git reset --hard
+git checkout master
+git pull
