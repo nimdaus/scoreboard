@@ -24,5 +24,5 @@ flask run -h <IP of System>
 
 UPDATE:
 git reset --hard
-git checkout master
+git checkout main
 git pull
