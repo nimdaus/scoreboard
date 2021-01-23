@@ -4,14 +4,14 @@ import time
 print("Killing WebUI")
 try:
 	check_call(["pkill", "-9", "-f", "flask"])
-except:
-	continue
+except Exception:
+	pass
 
 print("Refreshing from source")
 try:
 	check_call(["pkill", "-9", "-f", "webui"])
-except:
-	continue
+except Exception:
+	pass
 
 proc = subprocess.Popen('screen -S webui', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
 proc.stdin.write('cd ~/scoreboard\n')
