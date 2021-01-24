@@ -32,7 +32,7 @@ def load_status(): #load json with environment variables
 	load_avg = psutil.getloadavg() #(0.18, 0.11, 0.1)
 	'''NETWORK'''
 	netinfo = psutil.net_if_addrs() #wlan0 -- needs to be in config
-	netip = str(network["wlan0"][0])
+	netip = str(netinfo["wlan0"][0])
 	ip = re.search('(\d+\.\d+\.\d+\.\d*)', netip)
 	ip_address = ip.group(1)
 	hostname = socket.gethostname()
