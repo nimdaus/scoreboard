@@ -26,3 +26,7 @@ UPDATE:
 git reset --hard
 git checkout main
 git pull
+
+
+
+cd ~/scoreboard  && git reset --hard && git checkout main && git pull
