@@ -60,12 +60,11 @@ def load_config():
 		with open("~/scoreboard-webui/config/config.json") as f:
 			config = json.load(f)
 		config_loaded = True
-	return config, config_loaded
 	if os.path.exists("~/scoreboard-webui/config/web_config.json"):
 		with open("~/scoreboard-webui/config/web_config.json") as f:
 			web_config = json.load(f)
 		web_config_loaded = True
-	return web_config, web_config_loaded
+	return config, config_loaded, web_config, web_config_loaded
 
 @app.route('/')
 def status():

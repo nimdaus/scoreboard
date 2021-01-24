@@ -14,6 +14,8 @@ try:
 except Exception:
 	pass
 
+subprocess.call()
+
 proc = subprocess.Popen('screen -S webui', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
 proc.stdin.write(git reset --hard + '\n')
 proc.stdin.write(git checkout main + '\n')
