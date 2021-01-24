@@ -6,12 +6,10 @@ from subprocess import check_call, Popen
 import psutil
 import socket
 import time
-import pytz # $ pip install pytz
+import pytz
 from datetime import datetime
 import sys
 import platform
-
-#python3  -m pip install backports.zoneinfo #if older python than 3.9
 
 def load_status(): #load json with environment variables
 	global active_status, active_version, uptime, active_time, load_avg, ip_address, hostname, cpu_thermal, kernel, operating_system, py_version
@@ -25,33 +23,29 @@ def load_status(): #load json with environment variables
 			active_status = "Running"
 		else:
 			active_status = "Not Detected"
-	
+	'''TIME'''
 	delta = datetime.now().replace(microsecond=0) - datetime.fromtimestamp(psutil.boot_time())
 	uptime = str(delta)
-
 	now = datetime.now()
 	active_time = now.strftime("%b/%d/%Y %H:%M:%S")
-
+	'''PERFORMANCE'''
 	load_avg = psutil.getloadavg() #(0.18, 0.11, 0.1)
-
+	'''NETWORK'''
 	netinfo = psutil.net_if_addrs() #wlan0 -- needs to be in config
 	netip = str(network["wlan0"][0])
 	ip = re.search('(\d+\.\d+\.\d+\.\d*)', netip)
 	ip_address = ip.group(1)
 	hostname = socket.gethostname()
-
+	'''TEMPERATURE'''
 	sensors = psutil.sensors_temperatures() #vcgencmd measure_temp #Also works
 	thermal_temp = re.search(rf'{"current"}=(\d+\.\d*)', str(sensors["cpu_thermal"][0]))
 	cpu_thermal = thermal_temp.group(1)
-
+	'''SYSTEM'''
 	kernel_cmd = subprocess.run(["uname", "-r"], capture_output=True, text=True)
 	kernel = kernel_cmd.stdout
-
 	operating_system_cmd = subprocess.run(["lsb_release", "-ds"], capture_output=True, text=True)
 	operating_system = operating_system_cmd.stdout
-
 	py_version = ".".join(map(str, sys.version_info[:3]))
-
 	return active_status, active_version, uptime, active_time, load_avg, ip_address, hostname, cpu_thermal, kernel, operating_system, py_version
 
 def load_config():
@@ -202,6 +196,11 @@ UPGRADE SECTION
 '''
 @app.route('/upgrade', methods=["GET"])
 def upgrade():
+	#git reset --hard
+	#git checkout master
+	#git pull
+	#chmod +x scripts/install.sh
+	#./scripts/install.sh
 	#pull from git
 	#install
 	#re-start
@@ -211,8 +210,20 @@ def upgrade():
 		return redirect(request.url)
 	else:
 		flash("Starting Now!", "info")
-		#upgrade to subprocess command
-		os.system("sudo python3 ~/nhl-led-scoreboard/src/main.py --led-gpio-mapping=adafruit-hat --led-brightness=60 --led-slowdown-gpio=2 --updatecheck=True")
+		subprocess.run("sudo python3 ~/nhl-led-scoreboard/src/main.py --led-gpio-mapping=adafruit-hat --led-brightness=60 --led-slowdown-gpio=2 --updatecheck=True")
+		return redirect(request.url)
+
+@app.route('/webupgrade', methods=["GET"])
+def webupgrade():
+	#repo = git.Repo("<the file directory of your local gihub repo>")
+	#repo.remotes.origin.pull()
+	if process.cmdline() == ['python', 'main.py']:
+		flash("Stopping Now!", "info")
+		check_call(["pkill", "-9", "-f", main.py])
+		return redirect(request.url)
+	else:
+		flash("Starting Now!", "info")
+		subprocess.run("sudo python3 ~/nhl-led-scoreboard/src/main.py --led-gpio-mapping=adafruit-hat --led-brightness=60 --led-slowdown-gpio=2 --updatecheck=True")
 		return redirect(request.url)
 
 '''
@@ -226,8 +237,7 @@ def stopstart():
 		return redirect(request.url)
 	else:
 		flash("Starting Now!", "info")
-		#To be upgraded to subprocess command
-		os.system("sudo python3 ~/nhl-led-scoreboard/src/main.py --led-gpio-mapping=adafruit-hat --led-brightness=60 --led-slowdown-gpio=2 --updatecheck=True")
+		subprocess.run("sudo python3 ~/nhl-led-scoreboard/src/main.py --led-gpio-mapping=adafruit-hat --led-brightness=60 --led-slowdown-gpio=2 --updatecheck=True")
 		return redirect(request.url)
 
 @app.route('/reload', methods=["GET"])
@@ -240,12 +250,16 @@ def reload():
 @app.route('/reset', methods=["GET"])
 def reset():
 	flash("Resetting Now!", "info")
-	check_call(["pkill", "-9", "-f", main.py])
-	#exit code 0 on success
-	#upgrade to subprocess command
-	os.system("sudo python3 ~/nhl-led-scoreboard/src/main.py --led-gpio-mapping=adafruit-hat --led-brightness=60 --led-slowdown-gpio=2 --updatecheck=True")
-	time.sleep(3)
-	return redirect(request.url)
+	killer = check_call(["pkill", "-9", "-f", main.py])
+	if killer.stdout == 0:
+		#upgrade to subprocess command
+		#os.system("sudo python3 ~/nhl-led-scoreboard/src/main.py --led-gpio-mapping=adafruit-hat --led-brightness=60 --led-slowdown-gpio=2 --updatecheck=True")
+		subprocess.run("sudo python3 ~/nhl-led-scoreboard/src/main.py --led-gpio-mapping=adafruit-hat --led-brightness=60 --led-slowdown-gpio=2 --updatecheck=True")
+		time.sleep(3)
+		return redirect(request.url)
+	else:
+		flash("Failed to kill process", "error")
+		return redirect(request.url)
 
 @app.route('/restart', methods=["GET"])
 def restart():
