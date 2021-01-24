@@ -10,6 +10,7 @@ import pytz
 from datetime import datetime
 import sys
 import platform
+import re
 
 def load_status(): #load json with environment variables
 	global active_status, active_version, uptime, active_time, load_avg, ip_address, hostname, cpu_thermal, kernel, operating_system, py_version
