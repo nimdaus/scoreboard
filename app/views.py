@@ -31,7 +31,7 @@ def load_status(): #load json with environment variables
 	now = datetime.now()
 	active_time = now.strftime("%b/%d/%Y %H:%M:%S")
 	'''PERFORMANCE'''
-	load_avg = psutil.getloadavg() #(0.18, 0.11, 0.1)
+	load_avg = f"{psutil.getloadavg()[0]}, {psutil.getloadavg()[1]}, {psutil.getloadavg()[2]}" #(0.18, 0.11, 0.1)
 	'''NETWORK'''
 	netinfo = psutil.net_if_addrs() #wlan0 -- needs to be in config
 	netip = str(netinfo["wlan0"][0])
