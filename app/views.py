@@ -56,25 +56,31 @@ def load_config():
 	config = 0
 	web_config_loaded = False
 	web_config = 0
-	#if os.path.exists("~/scoreboard-webui/config/config.json"):
-	with open("/home/pi/scoreboard-webui/config/config.json", "r") as f:
-		config = json.load(f)
-	config_loaded = True
-	#if os.path.exists("~/scoreboard-webui/config/web_config.json"):
-	with open("/home/pi/scoreboard-webui/config/web_config.json", "r") as f:
-		web_config = json.load(f)
-	web_config_loaded = True
+	if os.path.exists("/home/pi/scoreboard-webui/config/config.json"):
+		with open("/home/pi/scoreboard-webui/config/config.json", "r") as f:
+			config = json.load(f)
+		config_loaded = True
+	if os.path.exists("/home/pi/scoreboard-webui/config/web_config.json"):
+		with open("/home/pi/scoreboard-webui/config/web_config.json", "r") as f:
+			web_config = json.load(f)
+		web_config_loaded = True
 	return config, config_loaded, web_config, web_config_loaded
 
 @app.route('/')
 def status():
 	load_status()
 	load_config()
+	if config_loaded ==  False:
+		flash("No Config File", "error")
+		
 	return render_template("status.html", active_status=active_status, active_version=active_version, uptime=uptime, active_time=active_time, load_avg=load_avg, ip_address=ip_address, hostname=hostname, cpu_thermal=cpu_thermal, kernel=kernel, operating_system=operating_system, py_version=py_version)
 
 @app.route('/preferences', methods=["GET"])
 def preferences():
 	load_config()
+	if config_loaded ==  False:
+		flash("No Config File", "error")
+
 	return render_template("preferences.html", config=config)
 
 @app.route('/preferences', methods=["POST"])
