@@ -57,11 +57,11 @@ def load_config():
 	web_config_loaded = False
 	web_config = 0
 	#if os.path.exists("~/scoreboard-webui/config/config.json"):
-	with open("~/scoreboard-webui/config/config.json") as f:
+	with open("/home/pi/scoreboard-webui/config/config.json", "r") as f:
 		config = json.load(f)
 	config_loaded = True
 	#if os.path.exists("~/scoreboard-webui/config/web_config.json"):
-	with open("~/scoreboard-webui/config/web_config.json") as f:
+	with open("/home/pi/scoreboard-webui/config/web_config.json", "r") as f:
 		web_config = json.load(f)
 	web_config_loaded = True
 	return config, config_loaded, web_config, web_config_loaded
