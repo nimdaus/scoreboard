@@ -14,11 +14,12 @@ import platform
 import re
 
 def load_status(): #load json with environment variables
-	global active_status, active_version, uptime, active_time, load_avg, ip_address, hostname, cpu_thermal, kernel, operating_system, py_version
+	global active_status, active_version, active_web_version, uptime, active_time, load_avg, ip_address, hostname, cpu_thermal, kernel, operating_system, py_version
 
 	script = 'main.py'
 	active_status = 0
 	active_version = 0
+	active_web_version = 0
 
 	for process in psutil.process_iter():
 		if process.cmdline() == ['python', f'{script}']:
@@ -48,7 +49,7 @@ def load_status(): #load json with environment variables
 	operating_system_cmd = subprocess.run(["lsb_release", "-ds"], capture_output=True, text=True)
 	operating_system = operating_system_cmd.stdout
 	py_version = ".".join(map(str, sys.version_info[:3]))
-	return active_status, active_version, uptime, active_time, load_avg, ip_address, hostname, cpu_thermal, kernel, operating_system, py_version
+	return active_status, active_version, active_web_version, uptime, active_time, load_avg, ip_address, hostname, cpu_thermal, kernel, operating_system, py_version
 
 def load_config():
 	global config, config_loaded, web_config, web_config_loaded
@@ -72,7 +73,7 @@ def status():
 	load_config()
 	if config_loaded ==  False:
 		flash("No Config File", "error")
-		
+
 	return render_template("status.html", active_status=active_status, active_version=active_version, uptime=uptime, active_time=active_time, load_avg=load_avg, ip_address=ip_address, hostname=hostname, cpu_thermal=cpu_thermal, kernel=kernel, operating_system=operating_system, py_version=py_version)
 
 @app.route('/preferences', methods=["GET"])
