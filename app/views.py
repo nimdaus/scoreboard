@@ -56,14 +56,14 @@ def load_config():
 	config = 0
 	web_config_loaded = False
 	web_config = 0
-	if os.path.exists("~/scoreboard-webui/config/config.json"):
-		with open("~/scoreboard-webui/config/config.json") as f:
-			config = json.load(f)
-		config_loaded = True
-	if os.path.exists("~/scoreboard-webui/config/web_config.json"):
-		with open("~/scoreboard-webui/config/web_config.json") as f:
-			web_config = json.load(f)
-		web_config_loaded = True
+	#if os.path.exists("~/scoreboard-webui/config/config.json"):
+	with open("~/scoreboard-webui/config/config.json") as f:
+		config = json.load(f)
+	config_loaded = True
+	#if os.path.exists("~/scoreboard-webui/config/web_config.json"):
+	with open("~/scoreboard-webui/config/web_config.json") as f:
+		web_config = json.load(f)
+	web_config_loaded = True
 	return config, config_loaded, web_config, web_config_loaded
 
 @app.route('/')
